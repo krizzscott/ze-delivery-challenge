@@ -1,6 +1,7 @@
 package com.krizzscott.zedeliverychallenge.fixtures;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.data.geo.Point;
@@ -34,11 +35,7 @@ public class PartnerEntityTemplateLoader implements TemplateLoader {
 
 	private GeoJsonMultiPolygon generateMultiPolygon() {
 		List<GeoJsonPolygon> polygons = new ArrayList<GeoJsonPolygon>();
-		List<Point> points = new ArrayList<>();
-		points.add(new Point(1d, 2d));
-		points.add(new Point(2d, 2d));
-		points.add(new Point(3d, 2d));
-		points.add(new Point(1d, 2d));
+		List<Point> points = Arrays.asList(new Point(1d, 2d), new Point(2d, 2d), new Point(3d, 2d), new Point(1d, 2d));
 		polygons.add(new GeoJsonPolygon(points));
 		return new GeoJsonMultiPolygon(polygons);
 	}
