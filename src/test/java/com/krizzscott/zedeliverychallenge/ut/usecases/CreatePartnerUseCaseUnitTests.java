@@ -34,7 +34,7 @@ import br.com.six2six.fixturefactory.loader.FixtureFactoryLoader;
 
 
 @ExtendWith(SpringExtension.class)
-public class CreatePartnerUseCaseUnitTests {
+class CreatePartnerUseCaseUnitTests {
 	
 	@InjectMocks
 	private CreatePartnerUseCase useCase;
@@ -47,12 +47,12 @@ public class CreatePartnerUseCaseUnitTests {
 
 	
 	@BeforeAll
-	public static void setUp() {
+	static void setUp() {
 	    FixtureFactoryLoader.loadTemplates("com.krizzscott.zedeliverychallenge.fixtures");
 	}
 	
 	@Test
-	public void shouldThrowDomainValidationExceptionWhenPartnerDomainIsNull() {
+	void shouldThrowDomainValidationExceptionWhenPartnerDomainIsNull() {
 		
 		//GIVEN
 		Partner partner = null;
@@ -72,7 +72,7 @@ public class CreatePartnerUseCaseUnitTests {
 	}
 	
 	@Test
-	public void shouldThrowDomainValidationExceptionWhenPartnerTradingNameIsNull() {
+	void shouldThrowDomainValidationExceptionWhenPartnerTradingNameIsNull() {
 		
 		//GIVEN
 		Partner partner = Fixture.from(Partner.class).gimme("create-partner-invalid_tradingname");
@@ -92,7 +92,7 @@ public class CreatePartnerUseCaseUnitTests {
 	}
 	
 	@Test
-	public void shouldThrowDomainValidationExceptionWhenPartnerOwnerNameIsNull() {
+	void shouldThrowDomainValidationExceptionWhenPartnerOwnerNameIsNull() {
 		
 		//GIVEN
 		Partner partner = Fixture.from(Partner.class).gimme("create-partner-invalid_ownername");
@@ -112,7 +112,7 @@ public class CreatePartnerUseCaseUnitTests {
 	}
 	
 	@Test
-	public void shouldThrowDomainValidationExceptionWhenPartnerDocumentIsNull() {
+	void shouldThrowDomainValidationExceptionWhenPartnerDocumentIsNull() {
 		
 		//GIVEN
 		Partner partner = Fixture.from(Partner.class).gimme("create-partner-invalid_document");
@@ -132,7 +132,7 @@ public class CreatePartnerUseCaseUnitTests {
 	}
 	
 	@Test
-	public void shouldThrowDomainValidationExceptionWhenPartnerAddressIsNull() {
+	void shouldThrowDomainValidationExceptionWhenPartnerAddressIsNull() {
 		
 		//GIVEN
 		Partner partner = Fixture.from(Partner.class).gimme("create-partner-null_address");
@@ -152,7 +152,7 @@ public class CreatePartnerUseCaseUnitTests {
 	}
 	
 	@Test
-	public void shouldThrowDomainValidationExceptionWhenPartnerAddressCoordinatesIsNull() {
+	void shouldThrowDomainValidationExceptionWhenPartnerAddressCoordinatesIsNull() {
 		
 		//GIVEN
 		Partner partner = Fixture.from(Partner.class).gimme("create-partner-null_coordinates_address");
@@ -172,7 +172,7 @@ public class CreatePartnerUseCaseUnitTests {
 	}
 
 	@Test
-	public void shouldThrowDomainValidationExceptionWhenPartnerAddressCoordinatesIsEmpty() {
+	void shouldThrowDomainValidationExceptionWhenPartnerAddressCoordinatesIsEmpty() {
 		
 		//GIVEN
 		Partner partner = Fixture.from(Partner.class).gimme("create-partner-empty_coordinates_address");
@@ -192,7 +192,7 @@ public class CreatePartnerUseCaseUnitTests {
 	}
 	
 	@Test
-	public void shouldThrowDomainValidationExceptionWhenPartnerCoverageAreaIsNull() {
+	void shouldThrowDomainValidationExceptionWhenPartnerCoverageAreaIsNull() {
 		
 		//GIVEN
 		Partner partner = Fixture.from(Partner.class).gimme("create-partner-null_coveragearea");
@@ -212,7 +212,7 @@ public class CreatePartnerUseCaseUnitTests {
 	}
 	
 	@Test
-	public void shouldThrowDomainValidationExceptionWhenPartnerCoverageAreaCoordinatesIsNull() {
+	void shouldThrowDomainValidationExceptionWhenPartnerCoverageAreaCoordinatesIsNull() {
 		
 		//GIVEN
 		Partner partner = Fixture.from(Partner.class).gimme("create-partner-null_coordinates_coveragearea");
@@ -232,7 +232,7 @@ public class CreatePartnerUseCaseUnitTests {
 	}
 
 	@Test
-	public void shouldThrowDomainValidationExceptionWhenPartnerCoverageAreaCoordinatesIsEmpty() {
+	void shouldThrowDomainValidationExceptionWhenPartnerCoverageAreaCoordinatesIsEmpty() {
 		
 		//GIVEN
 		Partner partner = Fixture.from(Partner.class).gimme("create-partner-empty_coordinates_coveragearea");
@@ -252,7 +252,7 @@ public class CreatePartnerUseCaseUnitTests {
 	}
 	
 	@Test
-	public void shouldThrowWhenExistsEqualDocumentSavedDatabase() {
+	void shouldThrowWhenExistsEqualDocumentSavedDatabase() {
 		
 		//GIVEN
 		Partner partner = Fixture.from(Partner.class).gimme("create-partner-valid");
@@ -278,7 +278,7 @@ public class CreatePartnerUseCaseUnitTests {
 	}
 	
 	@Test
-	public void shouldBeCreatedPartnerWithSuccess() {
+	void shouldBeCreatedPartnerWithSuccess() {
 		
 		//GIVEN
 		Partner partner = Fixture.from(Partner.class).gimme("create-partner-valid");

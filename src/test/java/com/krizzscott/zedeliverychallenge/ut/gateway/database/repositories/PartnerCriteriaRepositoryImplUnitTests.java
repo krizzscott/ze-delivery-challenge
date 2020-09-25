@@ -31,7 +31,7 @@ import br.com.six2six.fixturefactory.Fixture;
 import br.com.six2six.fixturefactory.loader.FixtureFactoryLoader;
 
 @ExtendWith(SpringExtension.class)
-public class PartnerCriteriaRepositoryImplUnitTests {
+class PartnerCriteriaRepositoryImplUnitTests {
 	
 	@InjectMocks
 	private PartnerCriteriaRepositoryImpl partnerCriteriaRepository;
@@ -40,12 +40,12 @@ public class PartnerCriteriaRepositoryImplUnitTests {
 	private MongoTemplate mongoTemplate;
 	
 	@BeforeEach
-	public void setUp() {
+	void setUp() {
 	    FixtureFactoryLoader.loadTemplates("com.krizzscott.zedeliverychallenge.fixtures");
 	}
 
 	@Test
-	public void shouldReturnPartnerMostNearestByGeoPoint() {
+	void shouldReturnPartnerMostNearestByGeoPoint() {
 		
 		//GIVEN
 		final double longitude = 1d;
@@ -74,7 +74,7 @@ public class PartnerCriteriaRepositoryImplUnitTests {
 	}
 	
 	@Test
-	public void shouldReturnOptionalPartnerEmpty() {
+	void shouldReturnOptionalPartnerEmpty() {
 		
 		//GIVEN
 		final double longitude = 1d;

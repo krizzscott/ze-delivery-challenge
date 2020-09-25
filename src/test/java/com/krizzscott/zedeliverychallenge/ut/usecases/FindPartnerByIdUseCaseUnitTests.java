@@ -35,7 +35,7 @@ import br.com.six2six.fixturefactory.Fixture;
 import br.com.six2six.fixturefactory.loader.FixtureFactoryLoader;
 
 @ExtendWith(SpringExtension.class)
-public class FindPartnerByIdUseCaseUnitTests {
+class FindPartnerByIdUseCaseUnitTests {
 
 	@InjectMocks
 	private FindPartnerByIdUseCase useCase;
@@ -44,12 +44,12 @@ public class FindPartnerByIdUseCaseUnitTests {
 	private PartnerRepository partnerRepository;
 	
 	@BeforeAll
-	public static void setUp() {
+	static void setUp() {
 	    FixtureFactoryLoader.loadTemplates("com.krizzscott.zedeliverychallenge.fixtures");
 	}
 
 	@Test
-	public void shouldThrowDomainValidationExceptionWhenPartnerIdIsNull() {
+	void shouldThrowDomainValidationExceptionWhenPartnerIdIsNull() {
 		// GIVEN
 		final String partnerId = null;
 
@@ -67,7 +67,7 @@ public class FindPartnerByIdUseCaseUnitTests {
 	}
 	
 	@Test
-	public void shouldThrowPartnerNotFoundWhenPartnerIdNotFound() {
+	void shouldThrowPartnerNotFoundWhenPartnerIdNotFound() {
 		
 		// GIVEN
 		final String partnerId = UUID.randomUUID().toString();
@@ -92,7 +92,7 @@ public class FindPartnerByIdUseCaseUnitTests {
 	}
 	
 	@Test
-	public void shouldReturnPartnerFoundSuccess() {
+	void shouldReturnPartnerFoundSuccess() {
 		
 		// GIVEN
 		final String partnerId = UUID.randomUUID().toString();

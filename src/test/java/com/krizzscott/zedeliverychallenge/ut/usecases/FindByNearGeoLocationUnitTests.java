@@ -33,7 +33,7 @@ import br.com.six2six.fixturefactory.Fixture;
 import br.com.six2six.fixturefactory.loader.FixtureFactoryLoader;
 
 @ExtendWith(SpringExtension.class)
-public class FindByNearGeoLocationUnitTests {
+class FindByNearGeoLocationUnitTests {
 
 	@InjectMocks
 	private FindByNearGeoLocationUseCase useCase;
@@ -42,13 +42,13 @@ public class FindByNearGeoLocationUnitTests {
 	private PartnerCriteriaRepository partnerCriteriaRepository;
 	
 	@BeforeAll
-	public static void setUp() {
+	static void setUp() {
 	    FixtureFactoryLoader.loadTemplates("com.krizzscott.zedeliverychallenge.fixtures");
 	}
 	
 
 	@Test
-	public void shouldReturnListEmptyWhenNotFoundPartnerNearestToThePoint() {
+	void shouldReturnListEmptyWhenNotFoundPartnerNearestToThePoint() {
 		
 		// GIVEN
 		final double longitude = 1d;
@@ -75,7 +75,7 @@ public class FindByNearGeoLocationUnitTests {
 	}
 
 	@Test
-	public void shouldReturnListWhenFoundPartnerNearestToThePoint() {
+	void shouldReturnListWhenFoundPartnerNearestToThePoint() {
 		
 		// GIVEN
 		final double longitude = 1d;

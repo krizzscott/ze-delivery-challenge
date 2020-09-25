@@ -18,6 +18,13 @@
 	<properties>
 		<java.version>1.8</java.version>
 		<fixture-factory.version>3.1.0</fixture-factory.version>
+		<sonar.coverage.eclusions>
+			**/*ITests.java,
+			com/krizzscott/zedeliverychallenge/ZeDeliveryChallengeApplication.*,
+			com/krizzscott/zedeliverychallenge/configurations/log/Log*,
+			com/krizzscott/zedeliverychallenge/entrypoints/controllers/dto/*DTO.*,
+			com/krizzscott/zedeliverychallenge/exceptions/**
+		</sonar.coverage.eclusions>
 	</properties>
 
 	<dependencies>
@@ -88,8 +95,9 @@
 					<excludes>
 						<exclude>**/*ITests.java</exclude>
 						<exclude>com/krizzscott/zedeliverychallenge/ZeDeliveryChallengeApplication.*</exclude>
+						<exclude>com/krizzscott/zedeliverychallenge/configurations/log/Log*</exclude>
+						<exclude>com/krizzscott/zedeliverychallenge/entrypoints/controllers/dto/*DTO.*</exclude>
 						<exclude>com/krizzscott/zedeliverychallenge/exceptions/**</exclude>
-						<exclude>com/krizzscott/zedeliverychallenge/configurations/Log*</exclude>
 					</excludes>
 				</configuration>
 			</plugin>
@@ -100,8 +108,9 @@
 				<configuration>
 					<excludes>
 						<exclude>com/krizzscott/zedeliverychallenge/ZeDeliveryChallengeApplication.*</exclude>
+						<exclude>com/krizzscott/zedeliverychallenge/configurations/log/Log*</exclude>
+						<exclude>com/krizzscott/zedeliverychallenge/entrypoints/controllers/dto/*DTO.*</exclude>
 						<exclude>com/krizzscott/zedeliverychallenge/exceptions/**</exclude>
-						<exclude>com/krizzscott/zedeliverychallenge/configurations/Log*</exclude>
 					</excludes>
 				</configuration>
 				<executions>

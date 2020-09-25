@@ -173,7 +173,6 @@ public class PartnerTemplateLoader implements TemplateLoader {
 		List<List<List<List<Double>>>> multipolygon = 
 				Arrays.asList(Arrays.asList(Arrays.asList(Arrays.asList(1d, 2d), Arrays.asList(1d, 2d),
 						Arrays.asList(1d, 2d), Arrays.asList(1d, 2d), Arrays.asList(1d, 2d))));
-		System.out.println(multipolygon);
 		return multipolygon;
 	}
 

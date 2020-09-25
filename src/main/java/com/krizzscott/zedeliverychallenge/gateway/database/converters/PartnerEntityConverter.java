@@ -5,6 +5,8 @@ import com.krizzscott.zedeliverychallenge.gateway.database.entities.PartnerEntit
 
 public final class PartnerEntityConverter {
 
+	private PartnerEntityConverter() {}
+	
 	public static PartnerEntity toEntity(Partner domain) {
 		return new PartnerEntity().toBuilder()
 				.id(domain.getId())

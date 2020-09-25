@@ -27,7 +27,7 @@ import com.krizzscott.zedeliverychallenge.gateway.database.repositories.PartnerR
 import com.krizzscott.zedeliverychallenge.usecases.ExistsPartnerWithTheSameDocumentNumberUseCase;
 
 @ExtendWith(SpringExtension.class)
-public class ExistsPartnerWithTheSameDocumentNumberUseCaseUnitTests {
+class ExistsPartnerWithTheSameDocumentNumberUseCaseUnitTests {
 
 	@InjectMocks
 	private ExistsPartnerWithTheSameDocumentNumberUseCase useCase;
@@ -37,7 +37,7 @@ public class ExistsPartnerWithTheSameDocumentNumberUseCaseUnitTests {
 	
 
 	@Test
-	public void shouldThrowDomainExceptionWhenDocumentParamIsNull() {
+	void shouldThrowDomainExceptionWhenDocumentParamIsNull() {
 		
 		// GIVEN
 		final String document = null;
@@ -55,7 +55,7 @@ public class ExistsPartnerWithTheSameDocumentNumberUseCaseUnitTests {
 
 	}
 	@Test
-	public void shouldReturnFalseWhenDocumentNotFound() {
+	void shouldReturnFalseWhenDocumentNotFound() {
 		
 		// GIVEN
 		final String document = UUID.randomUUID().toString();
@@ -76,7 +76,7 @@ public class ExistsPartnerWithTheSameDocumentNumberUseCaseUnitTests {
 	}
 	
 	@Test
-	public void shouldReturnTrueWhenDocumentFound() {
+	void shouldReturnTrueWhenDocumentFound() {
 		
 		// GIVEN
 		final String document = UUID.randomUUID().toString();

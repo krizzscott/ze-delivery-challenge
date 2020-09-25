@@ -1,6 +1,7 @@
-package com.krizzscott.zedeliverychallenge.configurations;
+package com.krizzscott.zedeliverychallenge.configurations.log;
 
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.text.MessageFormat;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -21,7 +22,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public final class LogEvent {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(LogEvent.class);
-	public static final Charset UTF_8 = Charset.forName("UTF-8");
+	public static final Charset UTF_8 = StandardCharsets.UTF_8;
 	private final ObjectMapper mapper;
 
 	private final Map<String, Object> params;

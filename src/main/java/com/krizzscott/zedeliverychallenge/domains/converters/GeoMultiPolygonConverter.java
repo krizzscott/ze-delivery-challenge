@@ -12,8 +12,10 @@ import org.springframework.data.mongodb.core.geo.GeoJsonPolygon;
 import com.krizzscott.zedeliverychallenge.domains.GeoMultiPolygon;
 import com.krizzscott.zedeliverychallenge.domains.GeometryType;
 
-public class GeoMultiPolygonConverter {
+public final class GeoMultiPolygonConverter {
 
+	private GeoMultiPolygonConverter() {}
+	
 	public static GeoMultiPolygon toDomain(GeoJsonMultiPolygon entity) {
 		return new GeoMultiPolygon().toBuilder().type(GeometryType.findValue(entity.getType()))
 				.coordinates(convertMultiPolygonList(entity.getCoordinates())).build();

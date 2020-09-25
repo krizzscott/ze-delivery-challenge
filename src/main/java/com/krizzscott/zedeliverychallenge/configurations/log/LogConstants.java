@@ -1,4 +1,4 @@
-package com.krizzscott.zedeliverychallenge.configurations;
+package com.krizzscott.zedeliverychallenge.configurations.log;
 
 /**
  *

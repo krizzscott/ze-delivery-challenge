@@ -3,7 +3,9 @@ package com.krizzscott.zedeliverychallenge.domains.converters;
 import com.krizzscott.zedeliverychallenge.domains.Partner;
 import com.krizzscott.zedeliverychallenge.gateway.database.entities.PartnerEntity;
 
-public class PartnerConverter {
+public final class PartnerConverter {
+	
+	private PartnerConverter() {}
 
 	public static Partner toDomain(PartnerEntity entity) {
 		return new Partner().toBuilder().id(entity.getId()).ownerName(entity.getOwnerName())
