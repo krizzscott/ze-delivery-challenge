@@ -2,7 +2,7 @@ package com.krizzscott.zedeliverychallenge.domains;
 
 import static com.krizzscott.zedeliverychallenge.domains.GeometryType.MULTIPOLYGON;
 import static com.krizzscott.zedeliverychallenge.exceptions.badrequest.domain.ErrorDomainValidationDictionary.GEOMULTIPOLYGON_ARRAY_COORDINATES_CANNOT_BE_NULL;
-import static com.krizzscott.zedeliverychallenge.exceptions.badrequest.domain.ErrorDomainValidationDictionary.GEOMULTIPOLYGON_ARRAY_COORDINATES_LINEAR_POINTS_MUST_CONTAINS_FIVE_POINTS;
+import static com.krizzscott.zedeliverychallenge.exceptions.badrequest.domain.ErrorDomainValidationDictionary.GEOMULTIPOLYGON_ARRAY_COORDINATES_LINEAR_POINTS_MUST_CONTAINS_FOUR_OR_MORE_POSITIONS;
 import static com.krizzscott.zedeliverychallenge.exceptions.badrequest.domain.ErrorDomainValidationDictionary.GEOMULTIPOLYGON_ARRAY_COORDINATES_MUST_CONTAINS_AT_LEAST_ONE_POLYGON;
 import static com.krizzscott.zedeliverychallenge.exceptions.badrequest.domain.ErrorDomainValidationDictionary.GEOMULTIPOLYGON_ARRAY_COORDINATES_MUST_CONTAINS_TWO_COORDINATES_LAT_LONG;
 
@@ -59,9 +59,9 @@ public class GeoMultiPolygon {
 	}
 
 	private void validLinearPoints(List<List<Double>> linearPoints) {
-		if (ObjectUtils.isEmpty(linearPoints) || linearPoints.size() < 5) {
+		if (ObjectUtils.isEmpty(linearPoints) || linearPoints.size() < 4) {
 			throw new DomainValidationException(
-					GEOMULTIPOLYGON_ARRAY_COORDINATES_LINEAR_POINTS_MUST_CONTAINS_FIVE_POINTS);
+					GEOMULTIPOLYGON_ARRAY_COORDINATES_LINEAR_POINTS_MUST_CONTAINS_FOUR_OR_MORE_POSITIONS);
 		}
 	}
 

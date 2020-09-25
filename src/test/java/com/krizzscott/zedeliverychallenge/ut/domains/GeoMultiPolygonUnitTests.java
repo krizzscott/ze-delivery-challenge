@@ -79,19 +79,19 @@ class GeoMultiPolygonUnitTests {
 		});
 
 		// THEN
-		assertEquals("Parameter [geomultipolygon.coordinates] must contains 5 points of coordinates",
+		assertEquals("Parameter [geomultipolygon.coordinates] must contains 4 or more positions",
 				exception.getMessage());
 		assertEquals(400001, exception.getErrorCode());
 
 	}
 
 	@Test
-	void shouldThrowDomainExceptionWhenCoordinatesPolygonsPointsContainsLessThan5Points() {
+	void shouldThrowDomainExceptionWhenCoordinatesPolygonsPointsContainsLessThan4Positions() {
 
 		// GIVEN
 		GeoMultiPolygon actual = new GeoMultiPolygon()
 				.toBuilder().coordinates(Arrays.asList(Arrays.asList(Arrays.asList(
-						Arrays.asList(1d, 2d),Arrays.asList(1d, 2d), Arrays.asList(1d, 2d), Arrays.asList(1d, 2d)))))
+						Arrays.asList(1d, 2d),Arrays.asList(1d, 2d), Arrays.asList(1d, 2d)))))
 				.build();
 		// WHEN
 		BadRequestException exception = assertThrows(DomainValidationException.class, () -> {
@@ -99,7 +99,7 @@ class GeoMultiPolygonUnitTests {
 		});
 
 		// THEN
-		assertEquals("Parameter [geomultipolygon.coordinates] must contains 5 points of coordinates",
+		assertEquals("Parameter [geomultipolygon.coordinates] must contains 4 or more positions",
 				exception.getMessage());
 		assertEquals(400001, exception.getErrorCode());
 

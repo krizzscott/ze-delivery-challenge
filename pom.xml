@@ -11,17 +11,19 @@
 	</parent>
 	<groupId>com.krizzscott</groupId>
 	<artifactId>ze-delivery-challenge</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.3.0</version>
 	<name>ze-delivery-challenge</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
 		<java.version>1.8</java.version>
 		<fixture-factory.version>3.1.0</fixture-factory.version>
+		<springfox.version>2.9.2</springfox.version>
 		<sonar.coverage.eclusions>
 			**/*ITests.java,
 			com/krizzscott/zedeliverychallenge/ZeDeliveryChallengeApplication.*,
 			com/krizzscott/zedeliverychallenge/configurations/log/Log*,
+			com/krizzscott/zedeliverychallenge/configurations/swagger/**,
 			com/krizzscott/zedeliverychallenge/entrypoints/controllers/dto/*DTO.*,
 			com/krizzscott/zedeliverychallenge/exceptions/**
 		</sonar.coverage.eclusions>
@@ -48,6 +50,18 @@
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
+		</dependency>
+
+		<!-- Dependencies for [tests:springfox] -->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>${springfox.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>${springfox.version}</version>
 		</dependency>
 
 		<!-- Dependencies for [tests:junit5] -->
@@ -96,6 +110,7 @@
 						<exclude>**/*ITests.java</exclude>
 						<exclude>com/krizzscott/zedeliverychallenge/ZeDeliveryChallengeApplication.*</exclude>
 						<exclude>com/krizzscott/zedeliverychallenge/configurations/log/Log*</exclude>
+						<exclude>com/krizzscott/zedeliverychallenge/configurations/swagger/**</exclude>
 						<exclude>com/krizzscott/zedeliverychallenge/entrypoints/controllers/dto/*DTO.*</exclude>
 						<exclude>com/krizzscott/zedeliverychallenge/exceptions/**</exclude>
 					</excludes>
@@ -109,6 +124,7 @@
 					<excludes>
 						<exclude>com/krizzscott/zedeliverychallenge/ZeDeliveryChallengeApplication.*</exclude>
 						<exclude>com/krizzscott/zedeliverychallenge/configurations/log/Log*</exclude>
+						<exclude>com/krizzscott/zedeliverychallenge/configurations/swagger/**</exclude>
 						<exclude>com/krizzscott/zedeliverychallenge/entrypoints/controllers/dto/*DTO.*</exclude>
 						<exclude>com/krizzscott/zedeliverychallenge/exceptions/**</exclude>
 					</excludes>

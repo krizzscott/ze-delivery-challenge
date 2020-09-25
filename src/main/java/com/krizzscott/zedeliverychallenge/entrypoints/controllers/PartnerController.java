@@ -17,6 +17,7 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,6 +35,10 @@ import com.krizzscott.zedeliverychallenge.usecases.CreatePartnerUseCase;
 import com.krizzscott.zedeliverychallenge.usecases.FindByNearGeoLocationUseCase;
 import com.krizzscott.zedeliverychallenge.usecases.FindPartnerByIdUseCase;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
 @RestController
 @RequestMapping(path = "/v1/partners")
 public class PartnerController {
@@ -47,8 +52,16 @@ public class PartnerController {
 	@Autowired
 	private FindByNearGeoLocationUseCase findByNearGeoLocation;
 
+	@ApiOperation(value = "Endpoint responsavel pela criacao do Parceiro do Zé", 
+			notes = "Endpoint responsavel pela criacao do Parceiro do Zé",
+			consumes = MediaType.APPLICATION_JSON_VALUE)
+	@ApiResponses(value = {
+			@ApiResponse(code = 201, message = "Parceiro Criado com Sucesso"),
+			@ApiResponse(code = 400, message = "Erro na Validacao de entrada ou negocio"),
+			@ApiResponse(code = 500, message = "Erro interno de Servidor")
+	})
 	@ResponseStatus(code = HttpStatus.CREATED)
-	@PostMapping
+	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
 	public PartnerDTO createPartner(@Valid @RequestBody PartnerRequestDTO request) {
 		LOG_ACCESS.info(create(POST_PARTNERS).add(HTTP_METHOD, POST).add(REQUEST_BODY, request.toJSON()).build());
 

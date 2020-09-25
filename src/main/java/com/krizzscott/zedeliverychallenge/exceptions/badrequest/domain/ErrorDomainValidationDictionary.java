@@ -27,7 +27,7 @@ public enum ErrorDomainValidationDictionary {
 	GEOMULTIPOLYGON_FIELD_TYPE_CANNOT_BE_INVALID(400001, "Parameter [geomultipolygon.type] cannot be null or invalid"),
 	GEOMULTIPOLYGON_ARRAY_COORDINATES_CANNOT_BE_NULL(400001, "Parameter [geomultipolygon.coordinates] cannot be null or empty"), 
 	GEOMULTIPOLYGON_ARRAY_COORDINATES_MUST_CONTAINS_AT_LEAST_ONE_POLYGON(400001, "Parameter [geomultipolygon.coordinates] must contains at least 1 polygon"), 
-	GEOMULTIPOLYGON_ARRAY_COORDINATES_LINEAR_POINTS_MUST_CONTAINS_FIVE_POINTS(400001, "Parameter [geomultipolygon.coordinates] must contains 5 points of coordinates"), 
+	GEOMULTIPOLYGON_ARRAY_COORDINATES_LINEAR_POINTS_MUST_CONTAINS_FOUR_OR_MORE_POSITIONS(400001, "Parameter [geomultipolygon.coordinates] must contains 4 or more positions"), 
 	GEOMULTIPOLYGON_ARRAY_COORDINATES_MUST_CONTAINS_TWO_COORDINATES_LAT_LONG(400001, "Parameter [geomultipolygon.coordinates] must contains 2 coordinates (longitude, latitude)"),
 	;
 
