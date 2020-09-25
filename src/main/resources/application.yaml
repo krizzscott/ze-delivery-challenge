@@ -1,0 +1,14 @@
+info:
+  component: 'API Responsavel por Gerenciar e Localizar os Clientes Parceiros do Zé'
+  build:
+    version: '@project.version@'
+    name: '@project.name@'
+    
+spring:
+  application:
+    name: ze-delivery-challenge
+  data: 
+    mongodb:
+      uri: mongodb://localhost:27017/zedelivery?retryWrites=true&w=majority
+      database: zedelivery
+      
