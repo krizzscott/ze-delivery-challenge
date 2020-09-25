@@ -1,0 +1,20 @@
+version: '2.0'
+services:
+  ze-delivery-api:
+    container_name: ze-delivery-challenge-api
+    build: .
+    ports:
+      - 8080:8080
+    depends_on:
+      - ze-delivery-cache
+      - ze-delivery-database
+  ze-delivery-cache:
+    image: redis
+    container_name: ze-delivery-challenge-redis
+    ports:
+      - "6379:6379"
+  ze-delivery-database:
+    image: mongo
+    container_name: ze-delivery-challenge-mongodb
+    ports:
+      - "27017:27017"
