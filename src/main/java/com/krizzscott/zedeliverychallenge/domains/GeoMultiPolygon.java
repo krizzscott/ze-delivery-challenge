@@ -4,6 +4,7 @@ import static com.krizzscott.zedeliverychallenge.domains.GeometryType.MULTIPOLYG
 import static com.krizzscott.zedeliverychallenge.exceptions.badrequest.domain.ErrorDomainValidationDictionary.GEOMULTIPOLYGON_ARRAY_COORDINATES_CANNOT_BE_NULL;
 import static com.krizzscott.zedeliverychallenge.exceptions.badrequest.domain.ErrorDomainValidationDictionary.GEOMULTIPOLYGON_ARRAY_COORDINATES_LINEAR_POINTS_MUST_CONTAINS_FIVE_POINTS;
 import static com.krizzscott.zedeliverychallenge.exceptions.badrequest.domain.ErrorDomainValidationDictionary.GEOMULTIPOLYGON_ARRAY_COORDINATES_MUST_CONTAINS_AT_LEAST_ONE_POLYGON;
+import static com.krizzscott.zedeliverychallenge.exceptions.badrequest.domain.ErrorDomainValidationDictionary.GEOMULTIPOLYGON_ARRAY_COORDINATES_MUST_CONTAINS_TWO_COORDINATES_LAT_LONG;
 
 import java.util.List;
 
@@ -35,26 +36,39 @@ public class GeoMultiPolygon {
 	}
 
 	public void didMount() {
-		validatePolygonLayer();
-		validateLinearLayer();
-	}
-	
-	private void validatePolygonLayer() {
-		if (ObjectUtils.isEmpty(getCoordinates())) {//multipolygon
+		if (ObjectUtils.isEmpty(getCoordinates())) {// multipolygon
 			throw new DomainValidationException(GEOMULTIPOLYGON_ARRAY_COORDINATES_CANNOT_BE_NULL);
 		}
-		if (ObjectUtils.isEmpty(getCoordinates().get(0))) {//polygons
+
+		getCoordinates().forEach(polygons -> {// polygons
+			validPolygons(polygons);
+			polygons.forEach(linearPoints -> { // linear points
+				validLinearPoints(linearPoints);
+				linearPoints.forEach(points -> validPoints(points));
+			});
+		});
+
+	}
+
+	private void validPoints(List<Double> points) {
+		if (ObjectUtils.isEmpty(points)
+				|| points.size() != 2) {// coordinates
+			throw new DomainValidationException(
+					GEOMULTIPOLYGON_ARRAY_COORDINATES_MUST_CONTAINS_TWO_COORDINATES_LAT_LONG);
+		}
+	}
+
+	private void validLinearPoints(List<List<Double>> linearPoints) {
+		if (ObjectUtils.isEmpty(linearPoints) || linearPoints.size() < 5) {
+			throw new DomainValidationException(
+					GEOMULTIPOLYGON_ARRAY_COORDINATES_LINEAR_POINTS_MUST_CONTAINS_FIVE_POINTS);
+		}
+	}
+
+	private void validPolygons(List<List<List<Double>>> polygons) {
+		if (ObjectUtils.isEmpty(polygons)) {
 			throw new DomainValidationException(GEOMULTIPOLYGON_ARRAY_COORDINATES_MUST_CONTAINS_AT_LEAST_ONE_POLYGON);
 		}
 	}
-	
-	private void validateLinearLayer() {
-		if (ObjectUtils.isEmpty(getCoordinates().get(0).get(0))) {//linear
-			throw new DomainValidationException(GEOMULTIPOLYGON_ARRAY_COORDINATES_LINEAR_POINTS_MUST_CONTAINS_FIVE_POINTS);
-		}		
-		if (getCoordinates().get(0).get(0).get(0).size() < 5) {//linear
-			throw new DomainValidationException(GEOMULTIPOLYGON_ARRAY_COORDINATES_LINEAR_POINTS_MUST_CONTAINS_FIVE_POINTS);
-		}		
-	}
-	
+
 }

@@ -136,7 +136,10 @@ class PartnerUnitTests {
 				.ownerName("Owner Name Test")
 				.document("12345678912345")
 				.address(GeoPoint.builder().coordinates(Arrays.asList(1d, 2d)).build())
-				.coverageArea(new GeoMultiPolygon().toBuilder().coordinates(Arrays.asList(Arrays.asList(Arrays.asList(Arrays.asList(1d, 2d, 3d, 4d, 5d))))).build())
+				.coverageArea(new GeoMultiPolygon()
+						.toBuilder().coordinates(Arrays.asList(Arrays.asList(Arrays.asList(
+								Arrays.asList(1d, 2d),Arrays.asList(1d, 2d), Arrays.asList(1d, 2d), Arrays.asList(1d, 2d), Arrays.asList(1d, 2d)))))
+						.build())
 				.build();
 		
 		// WHEN
