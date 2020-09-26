@@ -1,14 +1,5 @@
-package com.krizzscott.zedeliverychallenge.ut.entrypoints.controllers;
+package com.krizzscott.zedeliverychallenge.it;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyDouble;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.inOrder;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoInteractions;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -19,60 +10,40 @@ import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InOrder;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.krizzscott.zedeliverychallenge.domains.Partner;
-import com.krizzscott.zedeliverychallenge.entrypoints.controllers.PartnerController;
 import com.krizzscott.zedeliverychallenge.entrypoints.controllers.dto.request.PartnerRequestDTO;
-import com.krizzscott.zedeliverychallenge.exceptions.ExceptionHandler;
-import com.krizzscott.zedeliverychallenge.exceptions.notfound.usecase.PartnerByGeoLocationNotFoundException;
-import com.krizzscott.zedeliverychallenge.exceptions.notfound.usecase.PartnerByIdNotFoundException;
-import com.krizzscott.zedeliverychallenge.usecases.CreatePartnerUseCase;
-import com.krizzscott.zedeliverychallenge.usecases.FindByNearGeoLocationUseCase;
-import com.krizzscott.zedeliverychallenge.usecases.FindPartnerByIdUseCase;
+import com.krizzscott.zedeliverychallenge.entrypoints.controllers.dto.response.PartnerDTO;
 
 import br.com.six2six.fixturefactory.Fixture;
 import br.com.six2six.fixturefactory.loader.FixtureFactoryLoader;
 
 @ExtendWith(SpringExtension.class)
-class PartnerControllerUnitTests{
+@SpringBootTest
+@AutoConfigureMockMvc
+class PartnerControllerITests {
 
+	@Autowired
 	private MockMvc mockMvc;
-
-	@InjectMocks
-	private PartnerController partnerController;
-	@Mock
-	private CreatePartnerUseCase createPartnerUseCase;
-	@Mock
-	private FindPartnerByIdUseCase findPartnerByIdUseCase;
-	@Mock
-	private FindByNearGeoLocationUseCase findByNearGeoLocation;
 
 	@BeforeEach
 	void setUp() {
 	    FixtureFactoryLoader.loadTemplates("com.krizzscott.zedeliverychallenge.fixtures");
-		mockMvc = MockMvcBuilders.standaloneSetup(partnerController)
-				.setControllerAdvice(ExceptionHandler.class)
-				.setValidator(new LocalValidatorFactoryBean())
-				.build();
 	}
 	
 	/*********************************************
 	 * Testes do endpoint de criacao de parceiro *
 	 *********************************************/
-
-	@Test
 	void whenPostRequestBodyNotSendThenReturns400() throws Exception {
 		//GIVEN
 
@@ -83,8 +54,6 @@ class PartnerControllerUnitTests{
 		//THEN
 		resultActions.andExpect(status().isBadRequest());
 		
-		verify(createPartnerUseCase, times(0)).execute(any(Partner.class));
-		verifyNoInteractions(createPartnerUseCase);
 	}
 
 	@Test
@@ -100,9 +69,6 @@ class PartnerControllerUnitTests{
 		//THEN
 		resultActions.andExpect(status().isBadRequest());
 		
-		verify(createPartnerUseCase, times(0)).execute(any(Partner.class));
-		verifyNoInteractions(createPartnerUseCase);
-		
 	}
 	
 	@Test
@@ -117,9 +83,6 @@ class PartnerControllerUnitTests{
 		
 		//THEN
 		resultActions.andExpect(status().isBadRequest());
-		
-		verify(createPartnerUseCase, times(0)).execute(any(Partner.class));
-		verifyNoInteractions(createPartnerUseCase);
 		
 	}
 
@@ -140,8 +103,6 @@ class PartnerControllerUnitTests{
 		.andExpect(jsonPath("$.message").isString())
 		.andExpect(jsonPath("$.message").value("Parameter [tradingName] cannot be null or empty"));	
 		
-		verify(createPartnerUseCase, times(0)).execute(any(Partner.class));
-		verifyNoInteractions(createPartnerUseCase);
 	}
 	
 	@Test
@@ -161,8 +122,6 @@ class PartnerControllerUnitTests{
 		.andExpect(jsonPath("$.message").isString())
 		.andExpect(jsonPath("$.message").value("Parameter [tradingName] cannot be null or empty"));	
 		
-		verify(createPartnerUseCase, times(0)).execute(any(Partner.class));
-		verifyNoInteractions(createPartnerUseCase);
 	}
 	
 	@Test
@@ -182,8 +141,6 @@ class PartnerControllerUnitTests{
 		.andExpect(jsonPath("$.message").isString())
 		.andExpect(jsonPath("$.message").value("Parameter [ownerName] cannot be null or empty"));		
 		
-		verify(createPartnerUseCase, times(0)).execute(any(Partner.class));
-		verifyNoInteractions(createPartnerUseCase);
 	}
 	
 	@Test
@@ -203,8 +160,6 @@ class PartnerControllerUnitTests{
 		.andExpect(jsonPath("$.message").isString())
 		.andExpect(jsonPath("$.message").value("Parameter [ownerName] cannot be null or empty"));	
 		
-		verify(createPartnerUseCase, times(0)).execute(any(Partner.class));
-		verifyNoInteractions(createPartnerUseCase);
 	}
 	
 	@Test
@@ -224,8 +179,6 @@ class PartnerControllerUnitTests{
 		.andExpect(jsonPath("$.message").isString())
 		.andExpect(jsonPath("$.message").value("Parameter [document] cannot be null"));	
 		
-		verify(createPartnerUseCase, times(0)).execute(any(Partner.class));
-		verifyNoInteractions(createPartnerUseCase);
 	}
 	
 	@Test
@@ -244,8 +197,6 @@ class PartnerControllerUnitTests{
 		.andExpect(jsonPath("$.errorCode").value(400001))
 		.andExpect(jsonPath("$.message").isString());
 		
-		verify(createPartnerUseCase, times(0)).execute(any(Partner.class));
-		verifyNoInteractions(createPartnerUseCase);
 	}
 	
 	@Test
@@ -265,8 +216,6 @@ class PartnerControllerUnitTests{
 		.andExpect(jsonPath("$.message").isString())
 		.andExpect(jsonPath("$.message").value("Parameter [document] cannot be invalid size, please insert only 14 numbers for CNPJ document"));	
 		
-		verify(createPartnerUseCase, times(0)).execute(any(Partner.class));
-		verifyNoInteractions(createPartnerUseCase);
 	}
 	
 	@Test
@@ -286,8 +235,6 @@ class PartnerControllerUnitTests{
 		.andExpect(jsonPath("$.message").isString())
 		.andExpect(jsonPath("$.message").value("Parameter [document] cannot be invalid pattern, please insert only numbers for CNPJ document"));
 		
-		verify(createPartnerUseCase, times(0)).execute(any(Partner.class));
-		verifyNoInteractions(createPartnerUseCase);
 	}
 	
 	@Test
@@ -307,8 +254,6 @@ class PartnerControllerUnitTests{
 		.andExpect(jsonPath("$.message").isString())
 		.andExpect(jsonPath("$.message").value("Parameter [address] cannot be null"));		
 		
-		verify(createPartnerUseCase, times(0)).execute(any(Partner.class));
-		verifyNoInteractions(createPartnerUseCase);
 	}
 	
 	@Test
@@ -328,8 +273,6 @@ class PartnerControllerUnitTests{
 		.andExpect(jsonPath("$.message").isString())
 		.andExpect(jsonPath("$.message").value("Parameter [address.type] cannot be null"));	
 		
-		verify(createPartnerUseCase, times(0)).execute(any(Partner.class));
-		verifyNoInteractions(createPartnerUseCase);
 	}
 	
 	@Test
@@ -349,8 +292,6 @@ class PartnerControllerUnitTests{
 		.andExpect(jsonPath("$.message").isString())
 		.andExpect(jsonPath("$.message").value("Parameter [address.coordinates] cannot be null"));		
 		
-		verify(createPartnerUseCase, times(0)).execute(any(Partner.class));
-		verifyNoInteractions(createPartnerUseCase);
 	}
 
 	@Test
@@ -370,8 +311,6 @@ class PartnerControllerUnitTests{
 		.andExpect(jsonPath("$.message").isString())
 		.andExpect(jsonPath("$.message").value("Parameter [address.coordinates] must contains 2 values, longitude and latitude"));	
 		
-		verify(createPartnerUseCase, times(0)).execute(any(Partner.class));
-		verifyNoInteractions(createPartnerUseCase);
 	}
 	
 	@Test
@@ -391,8 +330,6 @@ class PartnerControllerUnitTests{
 		.andExpect(jsonPath("$.message").isString())
 		.andExpect(jsonPath("$.message").value("Parameter [coverageArea.type] cannot be null or invalid"));		
 		
-		verify(createPartnerUseCase, times(0)).execute(any(Partner.class));
-		verifyNoInteractions(createPartnerUseCase);
 	}
 	
 	@Test
@@ -411,9 +348,6 @@ class PartnerControllerUnitTests{
 		.andExpect(jsonPath("$.errorCode").value(400001))
 		.andExpect(jsonPath("$.message").isString())
 		.andExpect(jsonPath("$.message").value("Parameter [coverageArea.type] cannot be null or invalid"));	
-		
-		verify(createPartnerUseCase, times(0)).execute(any(Partner.class));
-		verifyNoInteractions(createPartnerUseCase);
 		
 	}
 	
@@ -434,19 +368,13 @@ class PartnerControllerUnitTests{
 		.andExpect(jsonPath("$.message").isString())
 		.andExpect(jsonPath("$.message").value("Parameter [coverageArea.coordinates] cannot be null"));	
 
-		verify(createPartnerUseCase, times(0)).execute(any(Partner.class));
-		verifyNoInteractions(createPartnerUseCase);
-		
 	}
 	
 	@Test
 	void whenPostRequestBodyValidThenReturns201() throws Exception {
-		//GIVEN
-		Partner partner = Fixture.from(Partner.class).gimme("create-partner-valid-with-id");
-		PartnerRequestDTO partnerActual = Fixture.from(PartnerRequestDTO.class).gimme("valid");
 		
-		when(createPartnerUseCase.execute(any(Partner.class))).thenReturn(partner);
-
+		//GIVEN
+		PartnerRequestDTO partnerActual = Fixture.from(PartnerRequestDTO.class).gimme("valid");
 		
 		//WHEN
 		ResultActions resultActions = mockMvc.perform(post("/v1/partners")
@@ -473,40 +401,29 @@ class PartnerControllerUnitTests{
 		.andExpect(jsonPath("$.coverageArea.coordinates[0][0][0]").isArray())
 		.andExpect(jsonPath("$.coverageArea.coordinates[0][0][0][0]").isNumber());	
 
-		verify(createPartnerUseCase, times(1)).execute(any(Partner.class));
-		verifyNoMoreInteractions(createPartnerUseCase);
-		
-		InOrder inOrder = inOrder(createPartnerUseCase);
-		inOrder.verify(createPartnerUseCase, times(1)).execute(any(Partner.class));
-
 	}
 	
 	/**************************************************
 	 * Testes do endpoint de busca de parceiro por ID *
 	 **************************************************/
-
 	@Test
 	void whenGetPartnerByIdIsNullThenReturns405() throws Exception {
-		//GIVEN
+		// GIVEN
 		String partnerId = "";
-		
-		//WHEN
-		ResultActions resultActions = mockMvc.perform(get("/v1/partners/".concat(partnerId))
-				.contentType("application/json"));
-		
-		//THEN
+
+		// WHEN
+		ResultActions resultActions = mockMvc
+				.perform(get("/v1/partners/".concat(partnerId)).contentType("application/json"));
+
+		// THEN
 		resultActions.andExpect(status().isMethodNotAllowed());
-		
-		verify(findPartnerByIdUseCase, times(0)).execute(anyString());
-		verifyNoInteractions(findPartnerByIdUseCase);
+
 	}
 	
 	@Test
 	void whenGetPartnerByIdNotFoundThenReturns404() throws Exception {
 		//GIVEN
 		String partnerId = UUID.randomUUID().toString();
-		
-		when(findPartnerByIdUseCase.execute(anyString())).thenThrow(new PartnerByIdNotFoundException());
 		
 		//WHEN
 		ResultActions resultActions = mockMvc.perform(get("/v1/partners/".concat(partnerId))
@@ -519,21 +436,19 @@ class PartnerControllerUnitTests{
 		.andExpect(jsonPath("$.message").isString())
 		.andExpect(jsonPath("$.message").value("Partner not found by ID"));
 		
-		verify(findPartnerByIdUseCase, times(1)).execute(anyString());
-		verifyNoMoreInteractions(findPartnerByIdUseCase);
-		
-		InOrder inOrder = inOrder(findPartnerByIdUseCase);
-		inOrder.verify(findPartnerByIdUseCase, times(1)).execute(anyString());
-		
 	}
 
 	@Test
 	void whenGetPartnerByIdThenReturns200() throws Exception {
 		//GIVEN
-		String partnerId = UUID.randomUUID().toString();
-		Partner partnerExpected = Fixture.from(Partner.class).gimme("create-partner-valid-with-id");
+		PartnerRequestDTO partnerActual = Fixture.from(PartnerRequestDTO.class).gimme("valid-with-document-random");
+		ResultActions resultActionsCreate = mockMvc.perform(post("/v1/partners")
+				.contentType("application/json")
+				.content(mapToJson(partnerActual)));
+		PartnerDTO parterCreated = mapFromJson(resultActionsCreate.andReturn().getResponse().getContentAsString(), PartnerDTO.class);
+		
+		String partnerId = parterCreated.getId();
 
-		when(findPartnerByIdUseCase.execute(anyString())).thenReturn(partnerExpected);
 		
 		//WHEN
 		ResultActions resultActions = mockMvc.perform(get("/v1/partners/".concat(partnerId))
@@ -558,12 +473,6 @@ class PartnerControllerUnitTests{
 		.andExpect(jsonPath("$.coverageArea.coordinates[0][0]").isArray())
 		.andExpect(jsonPath("$.coverageArea.coordinates[0][0][0]").isArray())
 		.andExpect(jsonPath("$.coverageArea.coordinates[0][0][0][0]").isNumber());
-		
-		verify(findPartnerByIdUseCase, times(1)).execute(anyString());
-		verifyNoMoreInteractions(findPartnerByIdUseCase);
-		
-		InOrder inOrder = inOrder(findPartnerByIdUseCase);
-		inOrder.verify(findPartnerByIdUseCase, times(1)).execute(anyString());
 		
 	}
 	
@@ -582,8 +491,6 @@ class PartnerControllerUnitTests{
 		//THEN
 		resultActions.andExpect(status().isBadRequest());
 		
-		verify(findPartnerByIdUseCase, times(0)).execute(anyString());
-		verifyNoInteractions(findPartnerByIdUseCase);
 	}
 	
 	@Test
@@ -592,8 +499,6 @@ class PartnerControllerUnitTests{
 		MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
 		queryParams.add("long", "-21.65454");
 		queryParams.add("lat", "-43.232323232");
-		
-		when(findByNearGeoLocation.execute(anyDouble(), anyDouble())).thenThrow(new PartnerByGeoLocationNotFoundException());
 		
 		//WHEN
 		ResultActions resultActions = mockMvc.perform(get("/v1/partners/nearest-location")
@@ -607,25 +512,21 @@ class PartnerControllerUnitTests{
 		.andExpect(jsonPath("$.message").isString())
 		.andExpect(jsonPath("$.message").value("Partner not found by Geolocation"));
 		
-		verify(findByNearGeoLocation, times(1)).execute(anyDouble(), anyDouble());
-		verifyNoMoreInteractions(findByNearGeoLocation);
-		
-		InOrder inOrder = inOrder(findByNearGeoLocation);
-		inOrder.verify(findByNearGeoLocation, times(1)).execute(anyDouble(), anyDouble());
-		
 	}
 
 	@Test
 	void whenGetPartnerNearestByGeoPositionThenReturns200() throws Exception {
 		//GIVEN
-		MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
-		queryParams.add("long", "-21.65454");
-		queryParams.add("lat", "-43.232323232");
+		PartnerRequestDTO partnerActual = Fixture.from(PartnerRequestDTO.class).gimme("valid-with-real-coordinates");
+		ResultActions resultActionsCreate = mockMvc.perform(post("/v1/partners")
+				.contentType("application/json")
+				.content(mapToJson(partnerActual)));
+		resultActionsCreate.andExpect(status().isCreated());
 		
-		Partner partnerExpected = Fixture.from(Partner.class).gimme("create-partner-valid-with-id");
-
-		when(findByNearGeoLocation.execute(anyDouble(), anyDouble())).thenReturn(partnerExpected);
-
+		MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+		queryParams.add("long", "-46.86647415161133");
+		queryParams.add("lat", "-23.505814784042073");
+		
 		//WHEN
 		ResultActions resultActions = mockMvc.perform(get("/v1/partners/nearest-location")
 				.queryParams(queryParams)
@@ -651,17 +552,17 @@ class PartnerControllerUnitTests{
 		.andExpect(jsonPath("$.coverageArea.coordinates[0][0][0]").isArray())
 		.andExpect(jsonPath("$.coverageArea.coordinates[0][0][0][0]").isNumber());
 		
-		verify(findByNearGeoLocation, times(1)).execute(anyDouble(), anyDouble());
-		verifyNoMoreInteractions(findByNearGeoLocation);
-		
-		InOrder inOrder = inOrder(findByNearGeoLocation);
-		inOrder.verify(findByNearGeoLocation, times(1)).execute(anyDouble(), anyDouble());
-		
 	}
+	
 
 	private String mapToJson(Object request) throws JsonProcessingException {
 		ObjectMapper objectMapper = new ObjectMapper();
 		return objectMapper.writeValueAsString(request);
+	}
+	
+	private PartnerDTO mapFromJson(String responseAsString, Class<PartnerDTO> valueType) throws JsonMappingException, JsonProcessingException {
+		ObjectMapper objectMapper = new ObjectMapper();
+		return objectMapper.readValue(responseAsString, valueType);
 	}
 
 }

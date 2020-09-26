@@ -27,6 +27,26 @@ public class PartnerRequestDTOTemplate implements TemplateLoader {
 			}
 		});
 		
+		Fixture.of(PartnerRequestDTO.class).addTemplate("valid-with-document-random", new Rule() {
+			{
+				add("tradingName", "Nome da Adega");
+				add("ownerName", "Nome do Dono");
+				add("document", cnpj());
+				add("address", one(GeoAddressDTO.class, "valid"));
+				add("coverageArea", one(CoverageAreaDTO.class, "valid"));
+			}
+		});
+		
+		Fixture.of(PartnerRequestDTO.class).addTemplate("valid-with-real-coordinates", new Rule() {
+			{
+				add("tradingName", "Nome da Adega");
+				add("ownerName", "Nome do Dono");
+				add("document", cnpj());
+				add("address", one(GeoAddressDTO.class, "valid-real-coordinates"));
+				add("coverageArea", one(CoverageAreaDTO.class, "valid-real-coordinates"));
+			}
+		});
+		
 		Fixture.of(PartnerRequestDTO.class).addTemplate("with-tradingName-null", new Rule() {
 			{
 				add("tradingName", null);
@@ -184,6 +204,13 @@ public class PartnerRequestDTOTemplate implements TemplateLoader {
 			}
 		});
 		
+		Fixture.of(GeoAddressDTO.class).addTemplate("valid-real-coordinates", new Rule() {
+			{
+				add("type", GeometryType.POINT.toString());
+				add("coordinates", Arrays.asList(-46.86915636062622, -23.50679863566516));
+			}
+		});
+		
 		Fixture.of(GeoAddressDTO.class).addTemplate("with-type-null", new Rule() {
 			{
 				add("type", null);
@@ -217,6 +244,14 @@ public class PartnerRequestDTOTemplate implements TemplateLoader {
 				add("coordinates", generateMultiPolygon());
 			}
 		});
+		Fixture.of(CoverageAreaDTO.class).addTemplate("valid-real-coordinates", new Rule() {
+			{
+				add("type", GeometryType.MULTIPOLYGON.toString());
+				add("coordinates", generateMultiPolygonWithRealCoordinates());
+			}
+
+
+		});
 		Fixture.of(CoverageAreaDTO.class).addTemplate("with-type-null", new Rule() {
 			{
 				add("type", null);
@@ -236,6 +271,23 @@ public class PartnerRequestDTOTemplate implements TemplateLoader {
 			}
 		});
 	}
+	
+	private List<List<List<List<Double>>>> generateMultiPolygonWithRealCoordinates() {
+		List<List<List<List<Double>>>> multipolygon = new ArrayList<List<List<List<Double>>>>();
+		multipolygon.add(Arrays.asList(Arrays.asList(
+				Arrays.asList(-46.866538524627686, -23.510143676218334),
+				Arrays.asList(-46.866044998168945, -23.509395968643272),
+				Arrays.asList(-46.86381340026855, -23.508648256823566),
+				Arrays.asList(-46.864285469055176, -23.5072708818342),
+				Arrays.asList(-46.86625957489014, -23.505362209828007),
+				Arrays.asList(-46.86896324157715, -23.505342532652993),
+				Arrays.asList(-46.87035799026489, -23.506247679661502),
+				Arrays.asList(-46.870315074920654, -23.50793989434221),
+				Arrays.asList(-46.866538524627686, -23.510143676218334)
+				)));
+		return multipolygon;
+	}
+	
 	
 	private List<List<List<List<Double>>>> generateMultiPolygon() {
 		List<List<List<List<Double>>>> multipolygon = new ArrayList<List<List<List<Double>>>>();

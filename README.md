@@ -34,11 +34,11 @@
 ## Passos para Build do projeto:
 ### Considerando que você esteja na pasta raiz do projeto execute os seguintes comandos:
 - **Montagem da imagem do docker com os itens de infraestrutura**
-		- `docker-compose up -d`
+	- `docker-compose up -d`
 - **Empacotamento e execução de testes do nosso .jar**
-		-  `mvn clean install`
+	-  `mvn clean install`
 - **Start do projeto**
-		- `java -jar target/ze-delivery-challenge-1.3.0.jar`
+	- `java -jar target/ze-delivery-challenge-1.3.0.jar`
 
 - **Acessando a documentacao da API para maiores detalhes e realizacao de testes**
 		- http://localhost:8080/swagger-ui.html

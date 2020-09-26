@@ -11,4 +11,4 @@ spring:
     mongodb:
       uri: mongodb://localhost:27017/zedelivery?retryWrites=true&w=majority
       database: zedelivery
-      
+      auto-index-creation: true
