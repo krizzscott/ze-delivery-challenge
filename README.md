@@ -27,18 +27,21 @@
 - [x] **1.3 Busca de Parceiro:** Dada uma localização pelo usuário da API (coordenadas  `long`  e  `lat`), procure o parceiro que esteja  **mais próximo**  e  **que cuja área de cobertura inclua**  a localização.
 
 # Dependências para Validação local do Desafio
-	- JDK8
-	- Maven
-	- Docker 
+
+ - [Java JDK 8](https://www.oracle.com/br/java/technologies/javase/javase-jdk8-downloads.html)
+ - [Apache Maven](https://maven.apache.org/download.cgi)
+ - [Docker](https://www.docker.com/products/docker-desktop) 
 ## Passos para Build do projeto:
-- **Empacotamento do nosso .jar**
-	- Considerando que você esteja na pasta raiz do projeto execute o comando:
+### Considerando que você esteja na pasta raiz do projeto execute os seguintes comandos:
+- **Montagem da imagem do docker com os itens de infraestrutura**
+		- `docker-compose up -d`
+- **Empacotamento e execução de testes do nosso .jar**
 		-  `mvn clean install`
-- **Montagem da imagem do docker**
-	- Considerando que você esteja na pasta raiz do projeto execute o comando:
-		- `docker-compose up`
+- **Start do projeto**
+		- `java -jar target/ze-delivery-challenge-1.3.0.jar`
+
 - **Acessando a documentacao da API para maiores detalhes e realizacao de testes**
-	- http://localhost:8080/swagger-ui.html
+		- http://localhost:8080/swagger-ui.html
 	
 # Referencias
 - Documento de apoio usado para estudo de como efetuar a validação do GeoJSON MultiPolygon type [aqui](https://tools.ietf.org/html/rfc7946#section-3.1.6)
