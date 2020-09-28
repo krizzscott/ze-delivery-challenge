@@ -6,6 +6,7 @@ import org.springframework.data.mongodb.core.geo.GeoJsonMultiPolygon;
 import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 import org.springframework.data.mongodb.core.index.GeoSpatialIndexType;
 import org.springframework.data.mongodb.core.index.GeoSpatialIndexed;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -29,6 +30,8 @@ public class PartnerEntity {
 	@Getter private String id;
 	@Getter @Setter private String tradingName;
 	@Getter @Setter private String ownerName;
+	
+	@Indexed(unique = true)
 	@Getter @Setter private String document;
 	
 	@JsonSerialize(using = GeoJsonPointSerializer.class)
