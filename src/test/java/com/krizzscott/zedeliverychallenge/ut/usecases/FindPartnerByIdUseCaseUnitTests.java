@@ -2,6 +2,7 @@ package com.krizzscott.zedeliverychallenge.ut.usecases;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.times;
@@ -26,6 +27,7 @@ import com.krizzscott.zedeliverychallenge.exceptions.badrequest.BadRequestExcept
 import com.krizzscott.zedeliverychallenge.exceptions.badrequest.domain.DomainValidationException;
 import com.krizzscott.zedeliverychallenge.exceptions.notfound.NotFoundException;
 import com.krizzscott.zedeliverychallenge.exceptions.notfound.usecase.PartnerByIdNotFoundException;
+import com.krizzscott.zedeliverychallenge.gateway.cache.component.PartnerCache;
 import com.krizzscott.zedeliverychallenge.gateway.database.converters.PartnerEntityConverter;
 import com.krizzscott.zedeliverychallenge.gateway.database.entities.PartnerEntity;
 import com.krizzscott.zedeliverychallenge.gateway.database.repositories.PartnerRepository;
@@ -42,6 +44,8 @@ class FindPartnerByIdUseCaseUnitTests {
 
 	@Mock
 	private PartnerRepository partnerRepository;
+	@Mock
+	private PartnerCache partnerCache;
 	
 	@BeforeAll
 	static void setUp() {
@@ -62,7 +66,7 @@ class FindPartnerByIdUseCaseUnitTests {
 		assertEquals("Parameter [partnerId] cannot be null", exception.getMessage());
 		assertEquals(400001, exception.getErrorCode());
 
-		verifyNoInteractions(partnerRepository);
+		verifyNoInteractions(partnerRepository, partnerCache);
 
 	}
 	
@@ -83,10 +87,12 @@ class FindPartnerByIdUseCaseUnitTests {
 		assertEquals("Partner not found by ID", exception.getMessage());
 		assertEquals(404001, exception.getErrorCode());
 		
+		verify(partnerCache, times(1)).getById(anyString());
 		verify(partnerRepository, times(1)).findById(anyString());
-		verifyNoMoreInteractions(partnerRepository);
+		verifyNoMoreInteractions(partnerRepository, partnerCache);
 		
-		InOrder inOrder = inOrder(partnerRepository);
+		InOrder inOrder = inOrder(partnerRepository, partnerCache);
+		inOrder.verify(partnerCache, times(1)).getById(anyString());
 		inOrder.verify(partnerRepository).findById(anyString());	
 		
 	}
@@ -107,11 +113,15 @@ class FindPartnerByIdUseCaseUnitTests {
 		// THEN	
 		assertEquals(partnerExpected, actualPartner);
 		
+		verify(partnerCache, times(1)).getById(anyString());
 		verify(partnerRepository, times(1)).findById(anyString());
-		verifyNoMoreInteractions(partnerRepository);
+		verify(partnerCache, times(1)).putItem(anyString(), any(PartnerEntity.class));
+		verifyNoMoreInteractions(partnerRepository, partnerCache);
 		
-		InOrder inOrder = inOrder(partnerRepository);
+		InOrder inOrder = inOrder(partnerCache, partnerRepository);
+		inOrder.verify(partnerCache, times(1)).getById(anyString());
 		inOrder.verify(partnerRepository).findById(anyString());	
+		inOrder.verify(partnerCache, times(1)).putItem(anyString(), any(PartnerEntity.class));
 		
 	}
 

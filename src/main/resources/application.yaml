@@ -5,6 +5,7 @@ info:
     name: '@project.name@'
     
 spring:
+  profiles: default
   application:
     name: ze-delivery-challenge
   data: 
@@ -12,3 +13,9 @@ spring:
       uri: mongodb://localhost:27017/zedelivery?retryWrites=true&w=majority
       database: zedelivery
       auto-index-creation: true
+    redis:
+      url: localhost
+      port: 6379
+      hit-wait: 5
+      cache-partner:
+        name: cache.partner

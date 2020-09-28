@@ -62,12 +62,21 @@ public class PartnerController {
 	})
 	@ResponseStatus(code = HttpStatus.CREATED)
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-	public PartnerDTO createPartner(@Valid @RequestBody PartnerRequestDTO request) {
+	public PartnerDTO createPartner(@Valid @RequestBody final PartnerRequestDTO request) {
 		LOG_ACCESS.info(create(POST_PARTNERS).add(HTTP_METHOD, POST).add(REQUEST_BODY, request.toJSON()).build());
 
 		return PartnerDTOConverter.toDTO(createPartnerUseCase.execute(PartnerDTOConverter.toDomain(request)));
 	}
 
+	@ApiOperation(value = "Endpoint responsavel pelo detalhamento por ID do parceiro cadastrado", 
+			notes = "Endpoint responsavel pelo detalhamento por ID do parceiro cadastrado",
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Retorna a entidade do Parceiro cadastrado"),
+			@ApiResponse(code = 400, message = "Erro na Validacao de entrada ou negocio"),
+			@ApiResponse(code = 404, message = "Parceiro nao encontrado por ID"),
+			@ApiResponse(code = 500, message = "Erro interno de Servidor")
+	})
 	@ResponseStatus(code = HttpStatus.OK)
 	@GetMapping(path = "/{partnerId}")
 	public PartnerDTO findByID(@PathVariable(value = "partnerId") final String partnerId) {
@@ -77,6 +86,15 @@ public class PartnerController {
 		return PartnerDTOConverter.toDTO(findPartnerByIdUseCase.execute(partnerId));
 	}
 
+	@ApiOperation(value = "Endpoint responsavel por retornar o parceiro mais proximo dada uma determinada localizacao", 
+			notes = "Endpoint responsavel por retornar o parceiro mais proximo dada uma determinada localizacao",
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Retorna a entidade do Parceiro mais proximo da localizacao informada"),
+			@ApiResponse(code = 400, message = "Erro na Validacao de entrada ou negocio"),
+			@ApiResponse(code = 404, message = "Nao há parceiro proximo da sua localizacao"),
+			@ApiResponse(code = 500, message = "Erro interno de Servidor")
+	})
 	@ResponseStatus(code = HttpStatus.OK)
 	@GetMapping(path = "/nearest-location")
 	public PartnerDTO findByNearGeoLocation(

@@ -8,7 +8,7 @@ public final class PartnerDTOConverter {
 
 	private PartnerDTOConverter() {}
 	
-	public static Partner toDomain(PartnerRequestDTO schema) {
+	public static Partner toDomain(final PartnerRequestDTO schema) {
 		return new Partner().toBuilder()
 				.ownerName(schema.getOwnerName())
 				.tradingName(schema.getTradingName())
@@ -18,7 +18,7 @@ public final class PartnerDTOConverter {
 				.build();
 	}
 	
-	public static PartnerDTO toDTO(Partner domain) {
+	public static PartnerDTO toDTO(final Partner domain) {
 		return new PartnerDTO().toBuilder()
 				.id(domain.getId())
 				.ownerName(domain.getOwnerName())

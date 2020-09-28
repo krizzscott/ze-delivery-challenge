@@ -12,12 +12,12 @@ public final class GeoMultiPolygonDTOConverter {
 	
 	private GeoMultiPolygonDTOConverter() {}
 
-	public static GeoMultiPolygon toDomain(CoverageAreaDTO schema) {
+	public static GeoMultiPolygon toDomain(final CoverageAreaDTO schema) {
 		return new GeoMultiPolygon().toBuilder().type(MULTIPOLYGON.toString())
 				.coordinates(convertMultiPolygonList(schema.getCoordinates())).build();
 	}
 
-	public static CoverageAreaDTO toDTO(GeoMultiPolygon domain) {
+	public static CoverageAreaDTO toDTO(final GeoMultiPolygon domain) {
 		return new CoverageAreaDTO().toBuilder().type(domain.getType())
 				.coordinates(convertMultiPolygonList(domain.getCoordinates())).build();
 	}

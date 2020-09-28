@@ -47,6 +47,16 @@
 			<artifactId>spring-boot-starter-data-mongodb</artifactId>
 		</dependency>
 
+		<!-- Dependencies for [database:redis] -->
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-redis</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>redis.clients</groupId>
+			<artifactId>jedis</artifactId>
+		</dependency>
+			
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -110,10 +120,16 @@
 					<excludes>
 						<exclude>**/*ITests.java</exclude>
 						<exclude>com/krizzscott/zedeliverychallenge/ZeDeliveryChallengeApplication.*</exclude>
+						<exclude>com/krizzscott/zedeliverychallenge/configurations/cache/Redis*</exclude>
 						<exclude>com/krizzscott/zedeliverychallenge/configurations/log/Log*</exclude>
 						<exclude>com/krizzscott/zedeliverychallenge/configurations/swagger/**</exclude>
 						<exclude>com/krizzscott/zedeliverychallenge/entrypoints/controllers/dto/*DTO.*</exclude>
 						<exclude>com/krizzscott/zedeliverychallenge/exceptions/**</exclude>
+						<exclude>com/krizzscott/zedeliverychallenge/gateway/cache/component/**</exclude>
+						<exclude>com/krizzscott/zedeliverychallenge/gateway/cache/health/**</exclude>
+						<exclude>com/krizzscott/zedeliverychallenge/gateway/cache/key/**</exclude>
+						<exclude>com/krizzscott/zedeliverychallenge/gateway/database/entities/*Serializer.*</exclude>
+						<exclude>com/krizzscott/zedeliverychallenge/gateway/database/entities/*Deserializer.*</exclude>
 					</excludes>
 				</configuration>
 			</plugin>
@@ -137,10 +153,16 @@
 				<configuration>
 					<excludes>
 						<exclude>com/krizzscott/zedeliverychallenge/ZeDeliveryChallengeApplication.*</exclude>
+						<exclude>com/krizzscott/zedeliverychallenge/configurations/cache/Redis*</exclude>
 						<exclude>com/krizzscott/zedeliverychallenge/configurations/log/Log*</exclude>
 						<exclude>com/krizzscott/zedeliverychallenge/configurations/swagger/**</exclude>
 						<exclude>com/krizzscott/zedeliverychallenge/entrypoints/controllers/dto/*DTO.*</exclude>
 						<exclude>com/krizzscott/zedeliverychallenge/exceptions/**</exclude>
+						<exclude>com/krizzscott/zedeliverychallenge/gateway/cache/component/**</exclude>
+						<exclude>com/krizzscott/zedeliverychallenge/gateway/cache/health/**</exclude>
+						<exclude>com/krizzscott/zedeliverychallenge/gateway/cache/key/**</exclude>
+						<exclude>com/krizzscott/zedeliverychallenge/gateway/database/entities/*Serializer.*</exclude>
+						<exclude>com/krizzscott/zedeliverychallenge/gateway/database/entities/*Deserializer.*</exclude>
 					</excludes>
 				</configuration>
 				<executions>

@@ -7,11 +7,11 @@ public final class GeoPointDTOConverter {
 	
 	private GeoPointDTOConverter() {}
 
-	public static GeoPoint toDomain(GeoAddressDTO schema) {
+	public static GeoPoint toDomain(final GeoAddressDTO schema) {
 		return new GeoPoint().toBuilder().coordinates(schema.getCoordinates()).build();
 	}
 
-	public static GeoAddressDTO toDTO(GeoPoint domain) {
+	public static GeoAddressDTO toDTO(final GeoPoint domain) {
 		return new GeoAddressDTO().toBuilder().type(domain.getType()).coordinates(domain.getCoordinates())
 				.build();
 	}

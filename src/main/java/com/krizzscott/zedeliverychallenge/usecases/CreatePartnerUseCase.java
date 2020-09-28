@@ -10,7 +10,9 @@ import com.krizzscott.zedeliverychallenge.domains.Partner;
 import com.krizzscott.zedeliverychallenge.domains.converters.PartnerConverter;
 import com.krizzscott.zedeliverychallenge.exceptions.badrequest.domain.DomainValidationException;
 import com.krizzscott.zedeliverychallenge.exceptions.badrequest.usecase.PartnerDocumentAlreadyExistsException;
+import com.krizzscott.zedeliverychallenge.gateway.cache.component.PartnerCache;
 import com.krizzscott.zedeliverychallenge.gateway.database.converters.PartnerEntityConverter;
+import com.krizzscott.zedeliverychallenge.gateway.database.entities.PartnerEntity;
 import com.krizzscott.zedeliverychallenge.gateway.database.repositories.PartnerRepository;
 
 @Component
@@ -20,6 +22,8 @@ public class CreatePartnerUseCase {
 	private ExistsPartnerWithTheSameDocumentNumberUseCase existsPartnerWithTheSameDocumentNumberUseCase;
 	@Autowired
 	private PartnerRepository partnerRepository;
+	@Autowired
+	private PartnerCache partnerCache;
 
 	public Partner execute(final Partner partner) {
 		
@@ -29,7 +33,11 @@ public class CreatePartnerUseCase {
 			throw new PartnerDocumentAlreadyExistsException();
 		}       
 		
-		return PartnerConverter.toDomain(partnerRepository.save(PartnerEntityConverter.toEntity(partner)));
+		PartnerEntity partnerEntityCreated = partnerRepository.save(PartnerEntityConverter.toEntity(partner));
+		
+		partnerCache.putItem(partnerEntityCreated.getId(), partnerEntityCreated);
+		
+		return PartnerConverter.toDomain(partnerEntityCreated);
 	}
 	
 	private void validateDomain(final Partner partner) {

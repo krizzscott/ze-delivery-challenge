@@ -23,6 +23,7 @@ import com.krizzscott.zedeliverychallenge.domains.Partner;
 import com.krizzscott.zedeliverychallenge.exceptions.badrequest.BadRequestException;
 import com.krizzscott.zedeliverychallenge.exceptions.badrequest.domain.DomainValidationException;
 import com.krizzscott.zedeliverychallenge.exceptions.badrequest.usecase.PartnerDocumentAlreadyExistsException;
+import com.krizzscott.zedeliverychallenge.gateway.cache.component.PartnerCache;
 import com.krizzscott.zedeliverychallenge.gateway.database.converters.PartnerEntityConverter;
 import com.krizzscott.zedeliverychallenge.gateway.database.entities.PartnerEntity;
 import com.krizzscott.zedeliverychallenge.gateway.database.repositories.PartnerRepository;
@@ -44,6 +45,8 @@ class CreatePartnerUseCaseUnitTests {
 	
 	@Mock
 	private PartnerRepository partnerRepository;
+	@Mock
+	private PartnerCache partnerCache;
 
 	
 	@BeforeAll
@@ -270,7 +273,7 @@ class CreatePartnerUseCaseUnitTests {
 
 		verify(existsPartnerWithTheSameDocumentNumberUseCase, times(1)).execute(anyString());
 		verifyNoMoreInteractions(existsPartnerWithTheSameDocumentNumberUseCase);
-		verifyNoInteractions(partnerRepository);
+		verifyNoInteractions(partnerRepository, partnerCache);
 		
 		InOrder inOrder = inOrder(existsPartnerWithTheSameDocumentNumberUseCase);
 		inOrder.verify(existsPartnerWithTheSameDocumentNumberUseCase).execute(anyString());
@@ -296,11 +299,13 @@ class CreatePartnerUseCaseUnitTests {
 		
 		verify(existsPartnerWithTheSameDocumentNumberUseCase, times(1)).execute(anyString());
 		verify(partnerRepository, times(1)).save(any(PartnerEntity.class));
+		verify(partnerCache, times(1)).putItem(anyString(), any(PartnerEntity.class));
 		verifyNoMoreInteractions(existsPartnerWithTheSameDocumentNumberUseCase, partnerRepository);
 		
-		InOrder inOrder = inOrder(existsPartnerWithTheSameDocumentNumberUseCase, partnerRepository);
+		InOrder inOrder = inOrder(existsPartnerWithTheSameDocumentNumberUseCase, partnerRepository, partnerCache);
 		inOrder.verify(existsPartnerWithTheSameDocumentNumberUseCase).execute(anyString());
 		inOrder.verify(partnerRepository, times(1)).save(any(PartnerEntity.class));
+		inOrder.verify(partnerCache, times(1)).putItem(anyString(), any(PartnerEntity.class));
 		
 	}
 	

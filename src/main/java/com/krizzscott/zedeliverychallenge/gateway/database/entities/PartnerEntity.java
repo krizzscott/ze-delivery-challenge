@@ -8,6 +8,9 @@ import org.springframework.data.mongodb.core.index.GeoSpatialIndexType;
 import org.springframework.data.mongodb.core.index.GeoSpatialIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -27,8 +30,14 @@ public class PartnerEntity {
 	@Getter @Setter private String tradingName;
 	@Getter @Setter private String ownerName;
 	@Getter @Setter private String document;
+	
+	@JsonSerialize(using = GeoJsonPointSerializer.class)
+	@JsonDeserialize(using = GeoJsonPointDeserializer.class)
 	@GeoSpatialIndexed(type = GeoSpatialIndexType.GEO_2DSPHERE)
 	@Getter @Setter private GeoJsonPoint address;
+	
+	@JsonDeserialize(using = GeoJsonMultiPolygonDeserializer.class)
+	@JsonSerialize(using = GeoJsonMultiPolygonSerializer.class)
 	@Getter @Setter private GeoJsonMultiPolygon coverageArea;
 
 
